@@ -67,8 +67,10 @@ A first overview of the work behind the dataset was presented by the authors at 
 
 In addition, a detailed data paper as well as a longer journal article are currently (September 2026) also in the works.
 
-## Known Issues
+## Known Issues and Future Updates
 The dataset is a work-in-progress; we are aware of a range of data gaps, (potential) transcription errors, and a few other elements that still need to be dealt with. For details, please check the [Issues](https://github.com/chinacomx/lhhpublicationdata/issues) tab. Contributions and corrections are welcome!
+
+All future updates and expanded releases of the dataset will be documented in `CHANGELOG.md`. 
 
 ## Acknowledgements
 This work is supported by [ERC grant ChinaComx, Grant agreement ID: 101088049](https://doi.org/10.3030/101088049). Funded by the European Union. Views and opinions expressed are however those of the authors only and do not necessarily reflect those of the European Union or the European Research Council Executive Agency. Neither the European Union nor the granting authority can be held responsible for them. 
