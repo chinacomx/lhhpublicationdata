@@ -3,8 +3,8 @@
 
 This repository contains a digitized and consolidated dataset of twentieth-century *lianhuanhua* (连环画) publications, generated via OCR and manual proofreading from two historical catalogues:
 
-* **Ref002:** Wang Zhongming 王忠明, Bian Qiangsheng 卞强生, and Zhang Zhenhua 张振华, eds. 2001. 中国连环画收藏 [*Collecting Chinese Lianhuanhua*]. Jilin renmin chubanshe.
-* **Ref004:** Zhang Qiming 张奇明 and Yuxing Wang 王玉兴, eds. 2003. 中国连环画目录汇编 1949–1994 [*Collected Catalogue of Chinese Lianhuanhua: 1949–1994*]. Shanghai huabao chubanshe.
+* Wang Zhongming 王忠明, Bian Qiangsheng 卞强生, and Zhang Zhenhua 张振华, eds. 2001. 中国连环画收藏 [Collecting Chinese Lianhuanhua]. Jilin renmin chubanshe. (referenced in the dataset as **Ref002**)
+* Zhang Qiming 张奇明 and Wang Yuxing 王玉兴, eds. 2003. 中国连环画目录汇编 1949–1994 [Collected Catalogue of Chinese Lianhuanhua: 1949–1994]. Shanghai huabao chubanshe. (referenced in the dataset as **Ref004**)
 
 Provided in a comma-separated values (CSV) format, the dataset digitizes over 1,200 printed pages of densely packed tables to document detailed publication information for over 38,000 unique *lianhuanhua* published between 1949 and 1992.
 
