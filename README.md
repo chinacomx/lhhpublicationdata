@@ -48,18 +48,15 @@ Implements GPU-accelerated OCR via `PaddleOCR`. The scripts define dynamic bound
 * **Data Quality & Conflict Flagging:** Algorithmically scans for structural anomalies—such as abnormally short author names paired with missing roles, or identical authors with conflicting role assignments across entries—flagging these rows for targeted manual correction.
 
 ## Authors
-The __ChinaComx Lianhuanhua Publication Dataset__ has been created by the [ERC-ChinaComx Project](https://chinacomx.github.io/).
+The ChinaComx Lianhuanhua Publication Dataset has been created within the [ERC-ChinaComx Project](https://chinacomx.github.io/):
 
-**Principal Investigator:** Lena Henningsen  
+* Principal Investigator: **Lena Henningsen**
+* Concept and Supervision: **Damian Mandzunowski**
+* OCR and Implementation: **Tilen Zupan**
+* Initial OCR: **Bettina Jin**
 
-**Concept and Supervision:** Damian Mandzunowski 
-
-**OCR and Implementation:** Tilen Zupan  
-
-**Initial OCR:** Bettina Jin
-
-**Technical Advisor:** Matthias Arnold
-
+* External Technical Advisor: **Matthias Arnold**
+  
 ## Citation Format
 If you use this dataset, please cite it as:
 
