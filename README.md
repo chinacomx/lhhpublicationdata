@@ -35,14 +35,15 @@ The combined [`ChinaComx Lianhuanhua Publication Dataset`](data/processed/2026_0
 * `OCR_Process`: Software used for digitization (e.g., ABBYY_FineReader_OCR, PaddlePaddle).
 
 ## Data Processing & Scripts
-The `/scripts/` directory contains the Python notebooks created by Tilen Zupan and used to digitize, merge, and clean the historical catalogues. The data pipeline utilizes a mix of deep learning and rule-based parsing to standardize the metadata:
+The `/scripts/` directory contains the Python notebooks created by Tilen Zupan and used to standardize, merge, structure and clean the bibliographical data. The data pipeline utilizes a mix of deep learning and rule-based parsing to edit the metadata:
 
-* **Layout Analysis & OCR Extraction (Ref002):** Implements GPU-accelerated OCR via `PaddleOCR`. The scripts define dynamic bounding-box regions of interest (ROIs) to parse complex multi-column grid layouts, group text vertically, and automatically isolate page footnotes.
-* **Title Disambiguation:** Conditionally splits raw title strings into `Title_Core` and `Title_Extra` (capturing volume numbers and subtitles) based on parsed delimiters (e.g., full-width brackets `（` and em-dashes `—`). Unsplit edge cases with complex punctuation are programmatically isolated for manual review.
-* **Transformer-Based Author Parsing (Ref004):** Utilizes GPU-enabled `spaCy` with a Chinese BERT model (`zh_core_web_trf`) to perform Named Entity Recognition (NER). This extracts valid personal names (`PERSON` entities) from the raw author strings and segregates residual non-name data to identify specific bibliographic roles (e.g., adaptation 改编, illustration 绘画).
+* **Layout Analysis & OCR Extraction (Ref002):** 
+Implements GPU-accelerated OCR via `PaddleOCR`. The scripts define dynamic bounding-box regions of interest (ROIs) to parse complex multi-column grid layouts, group text vertically, and automatically isolate page footnotes.
+* **Title Disambiguation:** Conditionally splits raw title strings into `Title_Core` and `Title_Extra` (capturing volume numbers and subtitles) based on parsed delimiters (e.g., full-width brackets `（` or em-dashes `—`). Unsplit edge cases with complex punctuation are programmatically isolated for manual review.
+* **Transformer-Based Author Parsing (Ref004):** Utilizes GPU-enabled `spaCy` with a Chinese BERT model (`zh_core_web_trf`) to perform Named Entity Recognition (NER). This extracts valid personal names (`PERSON` entities) from the raw author strings and segregates residual non-name data to identify specific bibliographic roles (e.g., adaptation 改编, illustration 绘画). These were subsequently sorted by frequency of use and manually reviewed to form a dictionary of bibliographical roles. 
 * **Author Array Splitting:** Cleans bracketed extra information from author columns and splits multi-author strings (using slashes, spaces, and Chinese enumeration commas `、`) into sequential standardized columns (`Author_1`, `Author_2`, etc.).
-* **Publisher & Location Normalization:** Maps and replaces highly abbreviated publishing house designations with their complete institutional names using a custom dictionary lookup, and subsequently merges geographic publication data (`所在地`) into the database. 
-* **Data Quality & Conflict Flagging:** Algorithmically scans for structural anomalies—such as abnormally short author names paired with missing roles, or identical authors with conflicting role assignments across entries—flagging these rows (e.g., `Y=1,2`) for targeted manual correction.
+* **Publisher & Location Normalization:** Maps and replaces highly abbreviated publishing house designations with their complete institutional names using a custom dictionary lookup provided by the printed bibliographical catalogue, and subsequently merges geographic publication data into the database. 
+* **Data Quality & Conflict Flagging:** Algorithmically scans for structural anomalies—such as abnormally short author names paired with missing roles, or identical authors with conflicting role assignments across entries—flagging these rows for targeted manual correction.
 
 ## Authors
 The ChinaComx Lianhuanhua Publication Dataset has been created by the [ERC-ChinaComx Project](https://chinacomx.github.io/).
