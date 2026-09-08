@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below."
+authors:
+  - name: "ERC-ChinaComx"
+  - family-names: "Mandzunowski"
+    given-names: "Damian"
+  - family-names: "Zupan"
+    given-names: "Tilen"
+  - family-names: "Jin"
+    given-names: "Bettina"
+  - family-names: "Henningsen"
+    given-names: "Lena"
+title: "The ChinaComx Lianhuanhua Publication Dataset"
+version: 1.0.0
+doi: 10.5281/zenodo.YOUR-PENDING-DOI
+date-released: 2026-09-01
+url: "https://github.com/YOUR-USERNAME/YOUR-REPO-NAME"
+license: CC-BY-NC-SA-4.0
