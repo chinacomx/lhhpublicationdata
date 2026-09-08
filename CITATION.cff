@@ -1,7 +1,7 @@
 cff-version: 1.2.0
+type: dataset
 message: "If you use this dataset, please cite it as below."
 authors:
-  - name: "ERC-ChinaComx"
   - family-names: "Mandzunowski"
     given-names: "Damian"
   - family-names: "Zupan"
