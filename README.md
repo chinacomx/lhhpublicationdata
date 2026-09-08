@@ -86,11 +86,11 @@ Primary source materials such as the lianhuanhua publication catalogues were sou
 
 This work is supported by [ERC grant ChinaComx, Grant agreement ID: 101088049](https://doi.org/10.3030/101088049). Funded by the European Union. Views and opinions expressed are however those of the authors only and do not necessarily reflect those of the European Union or the European Research Council Executive Agency. Neither the European Union nor the granting authority can be held responsible for them.
 
-<table align="center" style="border: none;">
+<table width="100%" style="border: none;">
   <tr>
-    <td align="center" width="16%">
+    <td align="center" width="20%">
       <a href="https://chinacomx.github.io/">
-        <img src="https://chinacomx.github.io/assets/images/chinacomx-logo.png" alt="The ChinaComx Project." title="The ChinaComx Project" width="140">
+        <img src="https://chinacomx.github.io/assets/images/chinacomx-logo.png" alt="The ChinaComx Project." title="The ChinaComx Project." width="140">
       </a>
     </td>
     <td align="center" width="30%">
@@ -100,12 +100,12 @@ This work is supported by [ERC grant ChinaComx, Grant agreement ID: 101088049](h
     </td>
     <td align="center" width="30%">
       <a href="https://www.uni-heidelberg.de/fakultaeten/philosophie/zo/sinologie/research/project-comics.html">
-        <img src="https://chinacomx.github.io/assets/images/cats-logo.png" alt="Located at the Centre for Asian and Transcultural Studies, Institute of Chinese Studies" title="Located at the Centre for Asian and Transcultural Studies, Institute of Chinese Studies." width="140">
+        <img src="https://chinacomx.github.io/assets/images/cats-logo.png" alt="Located at the Centre for Asian and Transcultural Studies, Institute of Chinese Studies." title="Located at the Centre for Asian and Transcultural Studies, Institute of Chinese Studies." width="140">
       </a>
     </td>
     <td align="center" width="20%">
       <a href="https://www.uni-heidelberg.de/">
-        <img src="https://chinacomx.github.io/assets/images/hd-logo.png" alt="Affiliated with Heidelberg University" title="Affiliated with Heidelberg University." width="140">
+        <img src="https://chinacomx.github.io/assets/images/hd-logo.png" alt="Affiliated with Heidelberg University." title="Affiliated with Heidelberg University." width="140">
       </a>
     </td>
   </tr>
