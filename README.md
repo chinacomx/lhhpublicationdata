@@ -99,7 +99,7 @@ This work is supported by [ERC grant ChinaComx, Grant agreement ID: 101088049](h
       </a>
     </td>
     <td align="center" width="30%">
-      <a href="https://www.uni-heidelberg.de/fakultaeten/philosophie/zo/sinologie/research/project-comics.html">
+      <a href="https://www.cats.uni-heidelberg.de/">
         <img src="https://chinacomx.github.io/assets/images/cats-logo.png" alt="Located at the Centre for Asian and Transcultural Studies, Institute of Chinese Studies." title="Located at the Centre for Asian and Transcultural Studies, Institute of Chinese Studies." width="140">
       </a>
     </td>
