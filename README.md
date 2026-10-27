@@ -6,7 +6,7 @@ This repository contains a digitized and consolidated dataset of twentieth-centu
 * Wang Zhongming 王忠明, Bian Qiangsheng 卞强生, and Zhang Zhenhua 张振华, eds. 2001. 中国连环画收藏 [Collecting Chinese Lianhuanhua]. Jilin renmin chubanshe. (referenced in the dataset as `Ref002`)
 * Zhang Qiming 张奇明 and Wang Yuxing 王玉兴, eds. 2003. 中国连环画目录汇编 1949–1994 [Collected Catalogue of Chinese Lianhuanhua: 1949–1994]. Shanghai huabao chubanshe. (referenced in the dataset as `Ref004`)
 
-Provided in a comma-separated values (CSV) format, the dataset digitizes over 1,200 printed pages of densely packed tables to document detailed publication information for over 38,000 unique *lianhuanhua* published between 1949 and 1992.
+Provided in a comma-separated values (CSV) format, the dataset digitizes over 1,200 printed pages of densely packed tables to document detailed publication information for over 38,000 *lianhuanhua* published between 1949 and 1992 (as well as a smaller sample of titles from 1931-1949).
 
 As such, the dataset not only systematizes publication data as preserved in these two decades-old catalogues, but also reveals novel, multilayered connections across tens of thousands of titles, deepening our understanding of what was one of the world’s most widely consumed reading materials throughout the twentieth century.
 
@@ -16,7 +16,7 @@ As such, the dataset not only systematizes publication data as preserved in thes
 * `/scripts/`: The scripts used for data processing and cleaning.
 
 ## Data Dictionary
-The combined [`ChinaComx Lianhuanhua Publication Dataset`](data/processed/2026_06_22_CombinedData.csv) contains 46 columns, adapted from the original columns taken from both Ref002 and Ref004. Key columns include:
+The combined [`ChinaComx Lianhuanhua Publication Dataset`](data/processed/2026_06_22_CombinedData.csv) contains 46 columns, both adapted from the original columns as found in Ref002 and Ref004 but also created by us. Key columns include:
 
 * `Title_Full`: Full title of the publication as extracted.
 * `Title_Core`: Standardized core title (removing extraneous subtitle or series data).
@@ -37,7 +37,7 @@ The combined [`ChinaComx Lianhuanhua Publication Dataset`](data/processed/2026_0
 Please note that not all *lianhuanhua* listed in the dataset contain information across every column. This is because the original historical catalogues themselves are frequently incomplete. In digitizing this database, we adhered strictly to the information as it was printed in Ref002 and Ref004.
 
 ## Data Processing & Scripts
-The `/scripts/` directory contains the Python notebooks created by Tilen Zupan to standardize, merge, structure, and clean the bibliographical data. The data pipeline utilizes a mix of deep learning and rule-based parsing to edit the metadata:
+The `/scripts/` directory contains the Python notebooks used to standardize, merge, structure, and clean the bibliographical data. The data pipeline utilizes a mix of deep learning and rule-based parsing to edit the metadata:
 
 * **Layout Analysis & OCR Extraction (Ref002):** 
 Implements GPU-accelerated OCR via `PaddleOCR`. The scripts define dynamic bounding-box regions of interest (ROIs) to parse complex multi-column grid layouts, group text vertically, and automatically isolate page footnotes.
@@ -69,10 +69,10 @@ A first overview of the work behind the dataset was presented by the authors at 
 
 (The short paper is available in the conference *Book of Abstracts*, pp. 405–410, via [Zenodo](https://zenodo.org/records/22078032).)
 
-In addition, a detailed data paper as well as a longer journal article are currently (September 2026) also in the works.
+In addition, a detailed data paper is currently (October 2026) under review.
 
 ## Known Issues and Future Updates
-The dataset is a work-in-progress; we have spent a lot of effort on data cleaning and correction, but are aware of a range of things that still need to be dealt with. For details, please see the [Issues](https://github.com/chinacomx/lhhpublicationdata/issues) tab. Contributions and corrections are welcome!
+The dataset is a work-in-progress; we have spent a lot of effort on data cleaning and correction, but are aware of a range of things that still need to be dealt with. Contributions and corrections are welcome!
 
 All future updates and expanded releases of the dataset will be documented in `CHANGELOG.md`. 
 
