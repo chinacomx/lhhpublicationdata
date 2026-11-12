@@ -1,5 +1,5 @@
 # The ChinaComx Lianhuanhua Publication Dataset
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22661556.svg)](https://doi.org/10.5281/zenodo.22661556)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22661556.svg)](https://doi.org/10.5281/zenodo.22661555)
 
 This repository contains a digitized and consolidated dataset of twentieth-century *lianhuanhua* (连环画, lit. “linked serial pictures”) publications, generated via OCR, computational parsing, and manual proofreading from two printed bibliographical catalogues:
 
