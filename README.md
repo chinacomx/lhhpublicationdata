@@ -1,83 +1,96 @@
 # The ChinaComx Lianhuanhua Publication Dataset
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22661556.svg)](https://doi.org/10.5281/zenodo.22661556)
 
-This repository contains a digitized and consolidated dataset of twentieth-century *lianhuanhua* (连环画) publications, generated via OCR and manual proofreading from two historical catalogues:
+This repository contains a digitized and consolidated dataset of twentieth-century *lianhuanhua* (连环画, lit. “linked serial pictures”) publications, generated via OCR, computational parsing, and manual proofreading from two printed bibliographical catalogues:
 
-* Wang Zhongming 王忠明, Bian Qiangsheng 卞强生, and Zhang Zhenhua 张振华, eds. 2001. 中国连环画收藏 [Collecting Chinese Lianhuanhua]. Jilin renmin chubanshe. (referenced in the dataset as `Ref002`)
-* Zhang Qiming 张奇明 and Wang Yuxing 王玉兴, eds. 2003. 中国连环画目录汇编 1949–1994 [Collected Catalogue of Chinese Lianhuanhua: 1949–1994]. Shanghai huabao chubanshe. (referenced in the dataset as `Ref004`)
+- Wang Zhongming 王忠明, Bian Qiangsheng 卞强生, and Zhang Zhenhua 张振华, eds. 2001. 中国连环画收藏 [*Collecting Chinese Lianhuanhua*]. Jilin renmin chubanshe. (referenced in the dataset as `Ref002`)
+- Zhang Qiming 张奇明 and Wang Yuxing 王玉兴, eds. 2003. 中国连环画目录汇编 1949–1994 [*Collected Catalogue of Chinese Lianhuanhua: 1949–1994*]. Shanghai huabao chubanshe. (referenced in the dataset as `Ref004`)
 
-Provided in a comma-separated values (CSV) format, the dataset digitizes over 1,200 printed pages of densely packed tables to document detailed publication information for over 38,000 *lianhuanhua* published between 1949 and 1992 (as well as a smaller sample of titles from 1931-1949).
+Provided in comma-separated values (CSV) format, the dataset digitizes over 1,200 printed pages of densely packed tables to document detailed publication information for 38,162 catalogue entries—representing **36,606 unique *lianhuanhua* publications** after cross-catalogue deduplication—published between 1949 and 1994 (as well as a smaller sample of titles from 1931–1949).
 
-As such, the dataset not only systematizes publication data as preserved in these two decades-old catalogues, but also reveals novel, multilayered connections across tens of thousands of titles, deepening our understanding of what was one of the world’s most widely consumed reading materials throughout the twentieth century.
+As such, the dataset not only systematizes publication data as preserved in these two collector-compiled reference works, but also reveals novel, multilayered connections across tens of thousands of titles, deepening our understanding of what was one of the world’s most widely consumed reading materials throughout the twentieth century.
 
 ## Repository Structure
-* `/data/raw/`: The raw OCR-processed data from Ref002 and Ref004.
-* `/data/processed/`: The cleaned and edited individual datasets for Ref002 and Ref004, as well as the consolidated combined database (38,000+ entries).
-* `/scripts/`: The scripts used for data processing and cleaning.
+- `/data/raw/`: The raw OCR-processed data extracted from `Ref002` and `Ref004`.
+- `/data/processed/`: The cleaned and edited individual datasets for `Ref002` and `Ref004`, alongside the two consolidated master files introduced in v1.1:
+  - [`2026_11_12_CombinedData.csv`](data/processed/2026_11_12_CombinedData.csv): The complete combined database retaining all **38,162 catalogue entries** (`35,366` from `Ref004` and `2,796` from `Ref002`), linked across overlapping entries via `Unique_LHH_ID`.
+  - [`2026_11_12_UniqueData.csv`](data/processed/2026_11_12_UniqueData.csv): The deduplicated dataset containing the **36,606 unique *lianhuanhua* entries** (`35,366` from `Ref004` and `1,240` unique entries from `Ref002`). For the 1,556 overlapping entries recorded in both catalogues, the `Ref004` entry is retained as the primary record; users wishing to cross-reference `Ref002`-specific collector valuations, print runs, or footnotes across matched pairs can query the shared `Unique_LHH_ID` in `2026_11_12_CombinedData.csv`.
+- `/scripts/`: The Python/Jupyter notebooks used for OCR extraction, data refinement and transformation, and cross-catalogue deduplication.
 
 ## Data Dictionary
-The combined [`ChinaComx Lianhuanhua Publication Dataset`](data/processed/2026_06_22_CombinedData.csv) contains 46 columns, both adapted from the original columns as found in Ref002 and Ref004 but also created by us. Key columns include:
+Both [`2026_11_12_CombinedData.csv`](data/processed/2026_11_12_CombinedData.csv) and [`2026_11_12_UniqueData.csv`](data/processed/2026_11_12_UniqueData.csv) contain **48 columns**, adapted from the original columns in `Ref002` and `Ref004` and enriched with standardized metadata and linkage identifiers. Key columns include:
 
-* `Title_Full`: Full title of the publication as extracted.
-* `Title_Core`: Standardized core title (removing extraneous subtitle or series data).
-* `Author_Full`: The raw, unparsed string containing all author information.
-* `Author_1` ... `Author_7`: Sequentially parsed author names.
-* `Author_Core_1` ... `Author_Core_7`: Standardized versions of the author names.
-* `Author_Role_1` ... `Author_Role_7`: The specific role of each author (e.g., adaptation 改编, illustration 绘画).
-* `Publisher_Full`: Full name of the publishing house.
-* `Publication_Month` & `Year`: Temporal metadata for the publication.
-* `Format`: The physical dimensions/format of the book (e.g., 开本).
-* `Print_Run`: Total number of copies printed (印数).
-* `Price[元]`: Historical pricing information at the time of publication.
-* `Market_Exchange_Price_9品` & `10品`: Secondary market valuation (in RMB) for 9-grade and 10-grade condition copies in the year 2001 (sourced from Ref002).
-* `Source`: Indicates which historical catalogue the entry originated from (Ref002 or Ref004).
-* `OCR_Data`: The raw, unparsed text string extracted directly by the OCR software.
-* `OCR_Process`: Software used for digitization (e.g., ABBYY_FineReader_OCR, PaddlePaddle).
+- `Title_Full`: Full title of the publication as extracted.
+- `Title_Core` & `Title_Extra`: Standardized core title and separated subtitle or series/volume designation.
+- `Author_Full`: The raw, unsplit string containing all author and role information.
+- `Author_1` ... `Author_7`: Sequentially split author strings.
+- `Author_Core_1` ... `Author_Core_7`: Standardized personal names of the authors.
+- `Author_Role_1` ... `Author_Role_7`: The specific bibliographic role of each author (e.g., adaptation 改编, illustration 绘画).
+- `Publisher_Full`: Standardized full institutional name of the publishing house(s).
+- `Publisher_1` & `Publisher_2`: Individual publisher designations as recorded in the catalogues.
+- `Publisher_Location`: Standardized geographic location (city/province) of the publishing house.
+- `Publication_Month` & `Year`: Temporal metadata for the publication.
+- `First_Edition_First_Print` & `Other_Editions`: Edition and printing history metadata.
+- `Format`: The physical dimensions/format of the book (开本, e.g., `60`, `64`).
+- `Print_Run`: Total number of copies printed (印数), standardized into full integer values.
+- `Price_Yuan`: Historical retail price (in RMB) at the time of publication.
+- `Market_Exchange_Price_9品_in_Yuan_in_Year_2001` & `Market_Exchange_Price_10品_in_Yuan_in_Year_2001`: Secondary market valuation (in RMB) for 9-grade and 10-grade condition copies in the year 2001 (sourced from `Ref002`).
+- `Page_Count`, `Additional_Info`, `Editorial_Comments`, `Category/Chapter`, & `Footnotes`: Supplementary physical descriptions, catalogue thematic classifications, footnotes, and editorial annotations.
+- `Source`: Indicates which printed bibliographical catalogue and page number the entry originated from (e.g., `Ref002:7` or `Ref004:443`).
+- `OCR_Data`: The raw, unparsed text string extracted directly by the OCR software, preserved for data provenance verification against the print catalogues.
+- `OCR_Process`: Software or model used for text digitization (`ABBYY_FineReader_OCR`, `PaddlePaddle`, or `Gemini 3 Flash`).
+- `Unique_Ref_ID`: Entry-level identifier following the original sequence of titles within each source catalogue (`R002_00001`–`R002_02796` and `R004_00001`–`R004_35366`).
+- `Unique_LHH_ID`: Top-level work identifier (`LHH000001`–`LHH036606`) grouping duplicate entries of the same *lianhuanhua* publication across catalogues under a single ID.
 
-Please note that not all *lianhuanhua* listed in the dataset contain information across every column. This is because the original historical catalogues themselves are frequently incomplete. In digitizing this database, we adhered strictly to the information as it was printed in Ref002 and Ref004.
+Please note that not all *lianhuanhua* listed in the dataset contain information across every column. Because the dataset reflects what the two retrospective reference catalogues compiled in 2001 and 2003 documented—and those printed catalogues themselves contain omissions and abbreviations—we adhered strictly to the information printed in `Ref002` and `Ref004` while preserving the original extracted strings in `OCR_Data`.
 
-## Data Processing & Scripts
-The `/scripts/` directory contains the Python notebooks used to standardize, merge, structure, and clean the bibliographical data. The data pipeline utilizes a mix of deep learning and rule-based parsing to edit the metadata:
+## Data Processing, Transformation & Scripts
+The `/scripts/` directory contains the Python notebooks used to extract, parse, transform, clean, and deduplicate the bibliographical data across a multi-stage workflow:
 
-* **Layout Analysis & OCR Extraction (Ref002):** 
-Implements GPU-accelerated OCR via `PaddleOCR`. The scripts define dynamic bounding-box regions of interest (ROIs) to parse complex multi-column grid layouts, group text vertically, and automatically isolate page footnotes.
-* **Title Disambiguation:** Conditionally splits raw title strings into `Title_Core` and `Title_Extra` (capturing volume numbers and subtitles) based on parsed delimiters (e.g., full-width brackets `（` or em-dashes `—`). Unsplit edge cases with complex punctuation are programmatically isolated for manual review.
-* **Transformer-Based Author Parsing (Ref004):** Utilizes GPU-enabled `spaCy` with a Chinese BERT model (`zh_core_web_trf`) to perform Named Entity Recognition (NER). This extracts valid personal names (`PERSON` entities) from the raw author strings and segregates residual non-name data to identify specific bibliographic roles (e.g., adaptation 改编, illustration 绘画). These were subsequently sorted by frequency of use and manually reviewed to form a dictionary of bibliographical roles. 
-* **Author Array Splitting:** Cleans bracketed extra information from author columns and splits multi-author strings (using slashes, spaces, and Chinese enumeration commas `、`) into sequential standardized columns (`Author_1`, `Author_2`, etc.).
-* **Publisher & Location Normalization:** Maps and replaces highly abbreviated publishing house designations with their complete institutional names using a custom dictionary lookup provided by the printed bibliographical catalogue, and subsequently merges geographic publication data into the database. 
-* **Data Quality & Conflict Flagging:** Algorithmically scans for structural anomalies—such as abnormally short author names paired with missing roles, or identical authors with conflicting role assignments across entries—flagging these rows for targeted manual correction.
+- **OCR Extraction, Layout Analysis & Initial Parsing:** Combines outputs from `ABBYY FineReader`, GPU-accelerated `PaddleOCR` (using dynamic bounding-box regions of interest to parse complex multi-column grid layouts and isolate page footnotes in `Ref002`), and targeted extraction via `Gemini 3 Flash`, paired with LLM-assisted sequence parsing (`Gemini 2.5` / `Gemini 3 Flash`) to separate grouped catalogue strings into initial tabular fields.
+- **Title Disambiguation:** Conditionally splits raw title strings into `Title_Core` and `Title_Extra` (capturing volume numbers and subtitles) based on parsed delimiters (e.g., full-width brackets `（` or em-dashes `—`). Unsplit edge cases with complex punctuation are programmatically isolated for manual review.
+- **Transformer-Based Author & Role Identification (`Ref004`):** Utilizes GPU-enabled `spaCy` with its Chinese transformer model (`zh_core_web_trf`) to perform Named Entity Recognition (NER). This extracts personal names (`PERSON` entities) from the author strings and segregates residual non-name text to identify specific bibliographic roles (e.g., adaptation 改编, illustration 绘画), which were sorted by frequency and manually reviewed to build a standardized role dictionary.
+- **Author Array Splitting:** Cleans bracketed extra information from author columns and transforms multi-author strings (using slashes, spaces, and Chinese enumeration commas `、`) into sequential standardized columns (`Author_1`–`Author_7`, `Author_Core_1`–`Author_Core_7`, and `Author_Role_1`–`Author_Role_7`).
+- **Publisher & Location Normalization:** Maps and replaces abbreviated publishing house designations with their full institutional names (`Publisher_Full`) and geographic locations (`Publisher_Location`) using a custom lookup dictionary digitized from the publisher abbreviation table in `Ref004` (Zhang and Wang 2003) and enriched with municipal/provincial location mappings.
+- **Data Refinement & Quality Control:** Combines programmatic anomaly detection—scanning for abnormally short author names, missing roles, or conflicting role assignments—with manual post-processing and verification in LibreOffice Calc.
+- **Cross-Catalogue Record Linkage & Deduplication (`Duplicates.ipynb`):** Resolves cross-catalogue overlap between `Ref002` and `Ref004` using a rule-based Python matching engine. Because identical titles published in the same year by the same publisher sometimes exist in distinct physical formats (`Format`, e.g., 60 vs. 64 *kaiben*), entries across the two catalogues are paired only when they share identical normalized values across four strict bibliographic keys (`Title_Full`, `Year`, `Publication_Month`, and `Format`) combined with a substring-based publisher rule (`Publisher_1`) to accommodate unexpanded press abbreviations. The script assigns sequential catalogue entry IDs (`Unique_Ref_ID`) and top-level work IDs (`Unique_LHH_ID`), identifying 1,556 overlapping records and generating both the linked combined dataset (38,162 rows) and the deduplicated dataset (36,606 rows).
 
 ## Authors
 The ChinaComx Lianhuanhua Publication Dataset has been created within the [ERC-ChinaComx Project](https://chinacomx.github.io/):
 
-* Principal Investigator: **Lena Henningsen**
-* Concept and Supervision: **Damian Mandzunowski**
-* OCR and Implementation: **Tilen Zupan**
-* Initial OCR: **Bettina Jin**
-
-* External Technical Advisor: **Matthias Arnold**
+- Principal Investigator: **Lena Henningsen**
+- Concept and Supervision: **Damian Mandzunowski**
+- OCR and Implementation: **Tilen Zupan**
+- Initial OCR: **Bettina Jin**
+- External Technical Advisor: **Matthias Arnold**
   
-## Citation Format
-If you use this dataset, please cite it as:
+## Citation & Attribution Policy
+This dataset is the product of extensive digitization, computational parsing, and manual scholarly curation. In accordance with academic standards and the terms of our [CC BY-NC-SA 4.0 License](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en), **proper attribution is required whenever this dataset contributes to your research or project.**
 
-> Mandzunowski, Damian, Tilen Zupan, Bettina Jin, and Lena Henningsen. 2026. *The ChinaComx Lianhuanhua Publication Dataset* (version 1.0.0). Zenodo. [https://doi.org/10.5281/zenodo.22661556](https://doi.org/10.5281/zenodo.22661556).
+Please cite the dataset (and, once published, the accompanying paper) not only when performing quantitative or computational analyses, but also when using it as a **research, discovery, or reference tool**—including to:
+- identify, locate, or discover specific *lianhuanhua* titles, editions, or series;
+- verify or cross-reference bibliographic metadata (such as authors, roles, print runs, dates, or publishers);
+- trace creator networks, publishing output, or thematic trends across the corpus;
+- build derivative datasets, visualizations, exhibition catalogues, or digital tools.
+
+When referencing individual records in your publications, we encourage citing their stable work identifier (`Unique_LHH_ID`, e.g., `LHH016846`) alongside the dataset citation:
+
+> Mandzunowski, Damian, Tilen Zupan, Bettina Jin, and Lena Henningsen. 2026. *The ChinaComx Lianhuanhua Publication Dataset* (version 1.1.0). Zenodo. [https://doi.org/10.5281/zenodo.22661556](https://doi.org/10.5281/zenodo.22661556).
 
 ## Related Publications
-A first overview of the work behind the dataset was presented by the authors at the [European Association for Digital Humanities (EADH) Annual Conference 2026](https://eadh2026.confer.uj.edu.pl/) as:
+A first methodological overview of the work behind the dataset was presented at the [European Association for Digital Humanities (EADH) Annual Conference 2026](https://eadh2026.confer.uj.edu.pl/) (Jagiellonian University, Kraków) and published in the conference proceedings as:
 
-> Damian Mandzunowski and Tilen Zupan, “How to (Machine) Read 38,000 Chinese Comics? Distilling Publication Metadata from Lianhuanhua Catalogues,” Jagiellonian University Cracow, 16.09.2026.
+> Mandzunowski, Damian, and Tilen Zupan. 2026. “How to (Machine) Read 38,000 Chinese Comics? Distilling Publication Metadata from Lianhuanhua Catalogues.” In *European Association for Digital Humanities (EADH) Annual Conference 2026: Book of Abstracts*, edited by Aleksandra Rykowska and Jagiellonian Centre for Digital Humanities, 405–410. Zenodo. [https://doi.org/10.5281/zenodo.22078032](https://doi.org/10.5281/zenodo.22078032).
 
-(The short paper is available in the conference *Book of Abstracts*, pp. 405–410, via [Zenodo](https://zenodo.org/records/22078032).)
-
-In addition, a detailed data paper is currently (October 2026) under review.
+In addition, a comprehensive data paper is currently (November 2026) under review at the *Journal of Open Humanities Data*.
 
 ## Known Issues and Future Updates
-The dataset is a work-in-progress; we have spent a lot of effort on data cleaning and correction, but are aware of a range of things that still need to be dealt with. Contributions and corrections are welcome!
+The dataset is a work-in-progress; we have spent substantial effort on data cleaning and verification, but are aware of remaining edge cases documented in our repository's Issues tab. Contributions and corrections are welcome!
 
 All future updates and expanded releases of the dataset will be documented in `CHANGELOG.md`. 
 
 ## Acknowledgements
-This dataset is an academic output of the ERC-ChinaComx project, led by Principal Investigator Lena Henningsen. Damian Mandzunowski conceptualized and supervised its development. Tilen Zupan executed the main OCR extraction and data parsing, building upon initial digitization groundwork by Bettina Jin. We thank Matthias Arnold and Aijia Zhang for their valuable feedback and brainstorming throughout the work on the dataset.
+This dataset is an academic output of the ERC-ChinaComx project, led by Principal Investigator Lena Henningsen. Damian Mandzunowski conceptualized and supervised its development. Tilen Zupan executed the main OCR extraction, data transformation, and curation, building upon initial digitization groundwork by Bettina Jin. We thank Matthias Arnold and Aijia Zhang for their valuable feedback and brainstorming throughout the work on the dataset.
 
 Primary source materials such as the lianhuanhua publication catalogues were sourced from the [Centre for Asian and Transcultural Studies (CATS) Library, Heidelberg University](https://www.cats.uni-heidelberg.de/library/) as well as from the ERC-ChinaComx collection at the CATS Library; the digitized lianhuanhua collection is part of the [digiCATS Special Collections](https://digiportal.cats.uni-heidelberg.de/), part of the CATS Library.
 
@@ -109,6 +122,6 @@ This work is supported by [ERC grant ChinaComx, Grant agreement ID: 101088049](h
 </table>
 
 ## License
-The ChinaComx Lianhuanhua Publications Dataset is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en).
+The ChinaComx Lianhuanhua Publication Dataset is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en).
 
 See `LICENSE.md` for details.
