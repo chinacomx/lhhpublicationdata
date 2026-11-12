@@ -1,5 +1,5 @@
 # The ChinaComx Lianhuanhua Publication Dataset
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22661556.svg)](https://doi.org/10.5281/zenodo.22661555)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22661555.svg)](https://doi.org/10.5281/zenodo.22661555)
 
 This repository contains a digitized and consolidated dataset of twentieth-century *lianhuanhua* (连环画, lit. “linked serial pictures”) publications, generated via OCR, computational parsing, and manual proofreading from two printed bibliographical catalogues:
 
@@ -75,7 +75,7 @@ Please cite the dataset (and, once published, the accompanying paper) not only w
 
 When referencing individual records in your publications, we encourage citing their stable work identifier (`Unique_LHH_ID`, e.g., `LHH016846`) alongside the dataset citation:
 
-> Mandzunowski, Damian, Tilen Zupan, Bettina Jin, and Lena Henningsen. 2026. *The ChinaComx Lianhuanhua Publication Dataset* (version 1.1.0). Zenodo. [https://doi.org/10.5281/zenodo.22661556](https://doi.org/10.5281/zenodo.22661556).
+> Mandzunowski, Damian, Tilen Zupan, Bettina Jin, and Lena Henningsen. 2026. *The ChinaComx Lianhuanhua Publication Dataset* (version 1.1.0). Zenodo. [https://doi.org/10.5281/zenodo.22661555](https://doi.org/10.5281/zenodo.22661555).
 
 ## Related Publications
 A first methodological overview of the work behind the dataset was presented at the [European Association for Digital Humanities (EADH) Annual Conference 2026](https://eadh2026.confer.uj.edu.pl/) (Jagiellonian University, Kraków) and published in the conference proceedings as:
