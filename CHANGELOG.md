@@ -9,6 +9,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.1.1] - 2026-11-13
+
+### Changed
+- **Updated Final CSV Versions:** Using an updated bidirectional substring matching (`BIDIRECTIONAL_PUBLISHER = True`) for `Publisher_1` across `Ref002` and `Ref004` we updated the dataset totals to **1,557** matched `Ref002` entries (**1,239** unmatched) and **36,605** unique *lianhuanhua* publications (`LHH000001`–`LHH036605`). We then replaced the processed dataset files in `/data/processed/` with `2026_11_13_CombinedData.csv` (38,162 rows) and `2026_11_13_UniqueData.csv` (36,605 rows).
+
+---
+
 ## [1.1.0] - 2026-11-12
 
 ### Added

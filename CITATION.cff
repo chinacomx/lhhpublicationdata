@@ -11,9 +11,9 @@ authors:
   - family-names: "Henningsen"
     given-names: "Lena"
 title: "The ChinaComx Lianhuanhua Publication Dataset"
-version: 1.1.0
+version: 1.1.1
 doi: 10.5281/zenodo.22661555
-date-released: '2026-11-12'
+date-released: '2026-11-13'
 url: "https://doi.org/10.5281/zenodo.22661555"
 repository-code: "https://github.com/chinacomx/lhhpublicationdata"
 license: CC-BY-NC-SA-4.0
