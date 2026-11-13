@@ -19,7 +19,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Deduplication Script:** Added `/scripts/Duplicates.ipynb` documenting the four-key bibliographic matching heuristic (`Title_Full`, `Year`, `Publication_Month`, `Format`) and substring-based publisher matching rule.
 
 ### Changed
-- **Print Run Standardization:** Converted abbreviated Chinese print run figures (`Print_Run`) into full integer values across the dataset.
 - **Column Header Normalization:** Standardized the retail price column header from `Price[元]` to `Price_Yuan` to prevent syntax conflicts in statistical and visualization software.
 - **Documentation (`README.md` & `CITATION.cff`):** Expanded the data dictionary to 48 columns, clarified the distinction between OCR sequence parsing and downstream data transformation, documented all `OCR_Process` tools (`ABBYY_FineReader_OCR`, `PaddlePaddle`, and `Gemini 3 Flash`), updated the citation policy, and finalized Zenodo DOI metadata.
 
