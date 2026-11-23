@@ -55,14 +55,41 @@ The `/scripts/` directory contains the Python notebooks used to extract, parse, 
 - **Data Refinement & Quality Control:** Combines programmatic anomaly detection—scanning for abnormally short author names, missing roles, or conflicting role assignments—with manual post-processing and verification in LibreOffice Calc.
 - **Cross-Catalogue Record Linkage & Deduplication (`Duplicates.ipynb`):** Resolves cross-catalogue overlap between `Ref002` and `Ref004` using a rule-based Python matching engine. Because identical titles published in the same year by the same publisher sometimes exist in distinct physical formats (`Format`, e.g., 60 vs. 64 *kaiben*), entries across the two catalogues are paired only when they share identical normalized values across four strict bibliographic keys (`Title_Full`, `Year`, `Publication_Month`, and `Format`) combined with a bidirectional substring-based publisher rule (`Publisher_1`) to accommodate unexpanded press abbreviations. The script assigns sequential catalogue entry IDs (`Unique_Ref_ID`) and top-level work IDs (`Unique_LHH_ID`), identifying 1,557 overlapping records and generating both the linked combined dataset (38,162 rows) and the deduplicated dataset (36,605 rows).
 
+## Completing the Catalogue 
+`The ChinaComx Lianhuanhua Publication Dataset (v1.1.1)` in [`2026_11_13_UniqueData.csv`](data/processed/2026_11_13_UniqueData.csv) contains __36,605__ unique records predominantly from the years 1949–1994 that correspond to one-off publications as well as distinct editions and printings of the same titles.At first, however, there were more entries in our dataset—and these needed to undergo a process of deduplication. As described in the previous points, in the case of lianhuanhua, simply comparing their titles is not sufficient to distinguish duplicates. Even when using a normalized title,[^1] distinct publications routinely share identical titles. Take, for example, *Lei Feng* 雷锋: 23 records the dataset share this normalized title, yet they correspond to distinct lianhuanhua.[^2] We therefore implemented a rule-based record-linkage process along four bibliographic datapoints combined with a flexible publisher rule that yielded the final amount of 36,605 unique records.[^3]
+
+A question thus came up: what is the coverage scope of the dataset—that is, how many other documented lianhuanhua exist that we currently lack records for?
+
+To address this question, we assembled a combined corpus harvested in November 2026 from four major online lianhuanhua repositories comprising 75,256 lianhuanhua publication records (not deduplicated).[^4] Because these platforms do not follow the same structuring conventions as our dataset, cross-corpus comparisons are necessarily conservative. Still, following our duplicate-recognition process along the chosen four datapoints, __6,867__ web records linked directly to existing entries, leaving __68,389__ unmatched records. Further breaking down this unmatched pool, we got: 
+
+-  __2,043__ records predating 1949 and 2,349 records postdating 1994 which for now set aside given the temporal focus of the dataset; 
+- __5,077__ dated 1949–1994 records carrying normalized titles absent from our dataset and not flagged as duplicates, thus marking them as candidates for infusing into our dataset;
+- a further __25,710__ dated 1949–1994 records that matched an existing normalized title while differing in either format, month, year, or publisher, representing candidates for additional editions, formats, or printings; 
+- and __33,210__ records that either lack sufficient bibliographic metadata for a comparison along the four datapoints or had no publication date; however, 16,775 records without publication date carry normalized titles absent from our dataset.
+
+Adding the __5,077__ candidate records to the existing __36,605__ unique entries and factoring in the additional __16,775__ potential candidates locates the currently documented total count of 1949–1994 lianhuanhua records at between 41,682 and 58,457.[^5] This shows that __our dataset currently accounts for between 62.6%__ (at an upper bound of 58,457) __and up to 87.8%__ (at an lower bound of 41,682) __of verified records__ as presently documented across both corpora.
+
+This all is to show that the `ChinaComx Lianhuanhua Publication Dataset`, both at its current state ([`2026_11_13_UniqueData.csv`](data/processed/2026_11_13_UniqueData.csv)) and even more once the 5,077 immediate candidates are integrated (reaching 41,682 records or 71.3% of the 58,457 upper bound), constitutes a major defining contribution, not least because online sources are unstructured and extant literature does not address this question beyond speculation, but also because both figures represent an empirically substantial share of the documented historical corpus. 
+
+[^1]: The normalization process produced a standardized matching string derived from the core title (`Title_Core`, falling back to `Title_Full`) by stripping whitespace, punctuation, quotation and book-title marks (e.g., 《》), and trailing volume indicators (such as 上/下/全册) so that formatting or multi-volume variants of the same work are not misclassified.
+
+[^2]: See, e.g., LHH015433 and LHH016220.
+
+[^3]: The four datapoints were: full title (`Title_Full`), publication year (`Year`), publication month (`Publication_Month`), and print format (`Format`); the flexible publisher rule (`Publisher_1`) paired records when one publisher string is a substring of the other (or where publisher metadata is unrecorded in either source).
+
+[^4]: The four repositories were [51lianhuan 51连环](51lianhuan.com), a comprehensive online lianhuanhua catalogue; [Lianhuanhua Wang 连环画网](lhhw.com), a community forum and collector repository; [Lianqu Wang 连趣网](mylhh.com), a long-running collector portal, forum, and trading platform; and [Lianhuanhua Ku 连环画库](lhh365.cn), an online digital lianhuanhua archive and reading library.
+
+[^5]: A range prior to cross-site deduplication within the web corpus and excluding the 25,710 edition/printing variants on existing titles.
+
+
 ## Authors
 The ChinaComx Lianhuanhua Publication Dataset has been created within the [ERC-ChinaComx Project](https://chinacomx.github.io/):
 
-- Principal Investigator: **Lena Henningsen**
-- Concept and Supervision: **Damian Mandzunowski**
-- OCR and Implementation: **Tilen Zupan**
+- Principal Investigator: [**Lena Henningsen**](https://chinacomx.github.io/team/lena/)
+- Concept, Methodology, and Supervision: [**Damian Mandzunowski**](https://chinacomx.github.io/team/damian/)
+- OCR and Implementation: [**Tilen Zupan**](https://orcid.org/0009-0007-1262-6317)
 - Initial OCR: **Bettina Jin**
-- External Technical Advisor: **Matthias Arnold**
++ Technical Advisor: [**Matthias Arnold**, Coordinator of Heidelberg Research Architecture, Heidelberg Centre for Transcultural Studies](https://www.hcts.uni-heidelberg.de/en/centre/people-a-z/matthias-arnold)
   
 ## Citation & Attribution Policy
 This dataset is the product of extensive digitization, computational parsing, and manual scholarly curation. In accordance with academic standards and the terms of our [CC BY-NC-SA 4.0 License](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en), **proper attribution is required whenever this dataset contributes to your research or project.**
