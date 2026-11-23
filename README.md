@@ -72,15 +72,15 @@ Adding the __5,077__ candidate records to the existing __36,605__ unique entries
 This all is to show that the `ChinaComx Lianhuanhua Publication Dataset`, both at its current state ([`2026_11_13_UniqueData.csv`](data/processed/2026_11_13_UniqueData.csv)) and even more once the 5,077 immediate candidates are integrated (reaching 41,682 records or 71.3% of the 58,457 upper bound), constitutes a major defining contribution, not least because online sources are unstructured and extant literature does not address this question beyond speculation, but also because both figures represent an empirically substantial share of the documented historical corpus. 
 
 ___
-[^1] The normalization process produced a standardized matching string derived from the core title (`Title_Core`, falling back to `Title_Full`) by stripping whitespace, punctuation, quotation and book-title marks (e.g., 《》), and trailing volume indicators (such as 上/下/全册) so that formatting or multi-volume variants of the same work are not misclassified.
+[^1]: The normalization process produced a standardized matching string derived from the core title (`Title_Core`, falling back to `Title_Full`) by stripping whitespace, punctuation, quotation and book-title marks (e.g., 《》), and trailing volume indicators (such as 上/下/全册) so that formatting or multi-volume variants of the same work are not misclassified.
 
-[^2] See, e.g., LHH015433 and LHH016220.
+[^2]: See, e.g., LHH015433 and LHH016220.
 
-[^3] The four datapoints were: full title (`Title_Full`), publication year (`Year`), publication month (`Publication_Month`), and print format (`Format`); the flexible publisher rule (`Publisher_1`) paired records when one publisher string is a substring of the other (or where publisher metadata is unrecorded in either source).
+[^3]: The four datapoints were: full title (`Title_Full`), publication year (`Year`), publication month (`Publication_Month`), and print format (`Format`); the flexible publisher rule (`Publisher_1`) paired records when one publisher string is a substring of the other (or where publisher metadata is unrecorded in either source).
 
-[^4] The four repositories were [51lianhuan 51连环](51lianhuan.com), a comprehensive online lianhuanhua catalogue; [Lianhuanhua Wang 连环画网](lhhw.com), a community forum and collector repository; [Lianqu Wang 连趣网](mylhh.com), a long-running collector portal, forum, and trading platform; and [Lianhuanhua Ku 连环画库](lhh365.cn), an online digital lianhuanhua archive and reading library.
+[^4]: The four repositories were [51lianhuan 51连环](51lianhuan.com), a comprehensive online lianhuanhua catalogue; [Lianhuanhua Wang 连环画网](lhhw.com), a community forum and collector repository; [Lianqu Wang 连趣网](mylhh.com), a long-running collector portal, forum, and trading platform; and [Lianhuanhua Ku 连环画库](lhh365.cn), an online digital lianhuanhua archive and reading library.
 
-[^5] A range prior to cross-site deduplication within the web corpus and excluding the 25,710 edition/printing variants on existing titles.
+[^5]: A range prior to cross-site deduplication within the web corpus and excluding the 25,710 edition/printing variants on existing titles.
 
 
 ## Authors
