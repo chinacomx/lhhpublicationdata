@@ -71,7 +71,6 @@ Adding the __5,077__ candidate records to the existing __36,605__ unique entries
 
 This all is to show that the `ChinaComx Lianhuanhua Publication Dataset`, both at its current state ([`2026_11_13_UniqueData.csv`](data/processed/2026_11_13_UniqueData.csv)) and even more once the 5,077 immediate candidates are integrated (reaching 41,682 records or 71.3% of the 58,457 upper bound), constitutes a major defining contribution, not least because online sources are unstructured and extant literature does not address this question beyond speculation, but also because both figures represent an empirically substantial share of the documented historical corpus. 
 
-___
 [^1]: The normalization process produced a standardized matching string derived from the core title (`Title_Core`, falling back to `Title_Full`) by stripping whitespace, punctuation, quotation and book-title marks (e.g., 《》), and trailing volume indicators (such as 上/下/全册) so that formatting or multi-volume variants of the same work are not misclassified.
 
 [^2]: See, e.g., LHH015433 and LHH016220.
