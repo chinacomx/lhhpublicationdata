@@ -1,6 +1,27 @@
 # The ChinaComx Lianhuanhua Publication Dataset
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22661555.svg)](https://doi.org/10.5281/zenodo.22661555)
 
+![Dataset Version](https://img.shields.io/badge/dataset_version-1.1.1-A30022)
+![No. of Unique Records](https://img.shields.io/badge/no._of_unique_records-36%2C605-4D0A15)
+
+<details open>
+<summary><strong>ReadMe Overview</strong></summary>
+
+- [Repository Structure](#repository-structure)
+- [Data Dictionary](#data-dictionary)
+- [Data Processing & Scripts](#data-processing--scripts)
+- [Completing the Catalogue](#completing-the-catalogue)
+- [Creators](#creators)
+- [Citation & Attribution Policy](#citation--attribution-policy)
+- [Related Publications](#related-publications)
+- [Future Updates](#future-updates)
+- [Acknowledgements](#acknowledgements)
+- [License](#license)
+
+</details open>
+
+--- 
+
 This repository contains a digitized and consolidated dataset of twentieth-century *lianhuanhua* (连环画, lit. “linked serial pictures”) publications, generated via OCR, computational parsing, and manual proofreading from two printed bibliographical catalogues:
 
 - Wang Zhongming 王忠明, Bian Qiangsheng 卞强生, and Zhang Zhenhua 张振华, eds. 2001. 中国连环画收藏 [*Collecting Chinese Lianhuanhua*]. Jilin renmin chubanshe. (referenced in the dataset as `Ref002`)
@@ -17,34 +38,38 @@ As such, the dataset not only systematizes publication data as preserved in thes
   - [`2026_11_13_UniqueData.csv`](data/processed/2026_11_13_UniqueData.csv): The deduplicated dataset containing the **36,605 unique *lianhuanhua* entries** (`35,366` from `Ref004` and `1,239` unique entries from `Ref002`). For the 1,557 overlapping entries recorded in both catalogues, the `Ref004` entry is retained as the primary record; users wishing to cross-reference `Ref002`-specific collector valuations, print runs, or footnotes across matched pairs can query the shared `Unique_LHH_ID` in `2026_11_13_CombinedData.csv`.
 - `/scripts/`: The Python/Jupyter notebooks used for OCR extraction, data refinement and transformation, and cross-catalogue deduplication.
 
+### Quick Start
+
+```python
+import pandas as pd
+
+# Load the deduplicated master dataset (36,605 unique works)
+df = pd.read_csv("data/processed/2026_11_13_UniqueData.csv")
+
+# Inspect core bibliographic fields
+print(df[["Unique_LHH_ID", "Title_Core", "Publisher_Full", "Year", "Print_Run"]].head())
+
+# Cross-reference overlapping Ref002 & Ref004 records in the combined file
+combined = pd.read_csv("data/processed/2026_11_13_CombinedData.csv")
+overlaps = combined[combined["Unique_LHH_ID"] == "LHH000010"]
+```
+
 ## Data Dictionary
 Both [`2026_11_13_CombinedData.csv`](data/processed/2026_11_13_CombinedData.csv) and [`2026_11_13_UniqueData.csv`](data/processed/2026_11_13_UniqueData.csv) contain **48 columns**, adapted from the original columns in `Ref002` and `Ref004` and enriched with standardized metadata and linkage identifiers. Key columns include:
 
-- `Title_Full`: Full title of the publication as extracted.
-- `Title_Core` & `Title_Extra`: Standardized core title and separated subtitle or series/volume designation.
-- `Author_Full`: The raw, unsplit string containing all author and role information.
-- `Author_1` ... `Author_7`: Sequentially split author strings.
-- `Author_Core_1` ... `Author_Core_7`: Standardized personal names of the authors.
-- `Author_Role_1` ... `Author_Role_7`: The specific bibliographic role of each author (e.g., adaptation 改编, illustration 绘画).
-- `Publisher_Full`: Standardized full institutional name of the publishing house(s).
-- `Publisher_1` & `Publisher_2`: Individual publisher designations as recorded in the catalogues.
-- `Publisher_Location`: Standardized geographic location (city/province) of the publishing house.
-- `Publication_Month` & `Year`: Temporal metadata for the publication.
-- `First_Edition_First_Print` & `Other_Editions`: Edition and printing history metadata.
-- `Format`: The physical dimensions/format of the book (开本, e.g., `60`, `64`).
-- `Print_Run`: Total number of copies printed (印数), standardized into full integer values.
-- `Price_Yuan`: Historical retail price (in RMB) at the time of publication.
-- `Market_Exchange_Price_9品_in_Yuan_in_Year_2001` & `Market_Exchange_Price_10品_in_Yuan_in_Year_2001`: Secondary market valuation (in RMB) for 9-grade and 10-grade condition copies in the year 2001 (sourced from `Ref002`).
-- `Page_Count`, `Additional_Info`, `Editorial_Comments`, `Category/Chapter`, & `Footnotes`: Supplementary physical descriptions, catalogue thematic classifications, footnotes, and editorial annotations.
-- `Source`: Indicates which printed bibliographical catalogue and page number the entry originated from (e.g., `Ref002:7` or `Ref004:443`).
-- `OCR_Data`: The raw, unparsed text string extracted directly by the OCR software, preserved for data provenance verification against the print catalogues.
-- `OCR_Process`: Software or model used for text digitization (`ABBYY_FineReader_OCR`, `PaddlePaddle`, or `Gemini 3 Flash`).
-- `Unique_Ref_ID`: Entry-level identifier following the original sequence of titles within each source catalogue (`R002_00001`–`R002_02796` and `R004_00001`–`R004_35366`).
-- `Unique_LHH_ID`: Top-level work identifier (`LHH000001`–`LHH036606`) grouping duplicate entries of the same *lianhuanhua* publication across catalogues under a single ID.
+| Category | Columns | Description |
+| :--- | :--- | :--- |
+| **Identifiers** | `Unique_LHH_ID`, `Unique_Ref_ID` | Top-level work ID (`LHH000001`–`LHH036606`) and catalogue entry ID (`R002_...` / `R004_...`) |
+| **Titles** | `Title_Full`, `Title_Core`, `Title_Extra` | Raw title, standardized core title, and separated volume/subtitle strings |
+| **Creators** | `Author_Full`, `Author_1`…`7`, `Author_Core_1`…`7`, `Author_Role_1`…`7` | Raw creator string, split entries, standardized names, and roles (e.g., 改编, 绘画) |
+| **Publication** | `Publisher_Full`, `Publisher_1`, `Publisher_2`, `Publisher_Location`, `Year`, `Publication_Month` | Standardized press name, raw press strings, city/province, and publication date |
+| **Edition & Physical** | `First_Edition_First_Print`, `Other_Editions`, `Format`, `Page_Count`, `Print_Run` | Edition history, *kaiben* format (开本), page count, and standardized integer print run |
+| **Pricing** | `Price_Yuan`, `Market_Exchange_Price_9品_in_Yuan_in_Year_2001`, `..._10品_...` | Original retail price (RMB) and 2001 secondary collector valuations (`Ref002`) |
+| **Provenance & Notes** | `Source`, `OCR_Data`, `OCR_Process`, `Category/Chapter`, `Additional_Info`, `Editorial_Comments`, `Footnotes` | Catalogue page citation, raw OCR string, digitization engine, and editorial notes |
 
 Please note that not all *lianhuanhua* listed in the dataset contain information across every column. Because the dataset reflects what the two retrospective reference catalogues compiled in 2001 and 2003 documented—and those printed catalogues themselves contain omissions and abbreviations—we adhered strictly to the information printed in `Ref002` and `Ref004` while preserving the original extracted strings in `OCR_Data`.
 
-## Data Processing, Transformation & Scripts
+## Data Processing & Scripts
 The `/scripts/` directory contains the Python notebooks used to extract, parse, transform, clean, and deduplicate the bibliographical data across a multi-stage workflow:
 
 - **OCR Extraction, Layout Analysis & Initial Parsing:** Combines outputs from `ABBYY FineReader`, GPU-accelerated `PaddleOCR` (using bounding-box regions of interest to parse complex multi-column grid layouts and isolate page footnotes in `Ref002`), and targeted extraction via `Gemini 3 Flash`, paired with LLM-assisted sequence parsing (`Gemini 2.5` / `Gemini 3 Flash`) to separate grouped catalogue strings into initial tabular fields.
@@ -77,12 +102,12 @@ This all is to show that the `ChinaComx Lianhuanhua Publication Dataset`, both a
 
 [^3]: The four datapoints were: full title (`Title_Full`), publication year (`Year`), publication month (`Publication_Month`), and print format (`Format`); the flexible publisher rule (`Publisher_1`) paired records when one publisher string is a substring of the other (or where publisher metadata is unrecorded in either source).
 
-[^4]: The four repositories were [51lianhuan 51连环](51lianhuan.com), a comprehensive online lianhuanhua catalogue; [Lianhuanhua Wang 连环画网](lhhw.com), a community forum and collector repository; [Lianqu Wang 连趣网](mylhh.com), a long-running collector portal, forum, and trading platform; and [Lianhuanhua Ku 连环画库](lhh365.cn), an online digital lianhuanhua archive and reading library.
+[^4]: The four repositories were [51lianhuan 51连环](https://51lianhuan.com), a comprehensive online lianhuanhua catalogue; [Lianhuanhua Wang 连环画网](https://lhhw.com), a community forum and collector repository; [Lianqu Wang 连趣网](https://mylhh.com), a long-running collector portal, forum, and trading platform; and [Lianhuanhua Ku 连环画库](https://lhh365.cn), an online digital lianhuanhua archive and reading library.
 
 [^5]: A range prior to cross-site deduplication within the web corpus and excluding the 25,710 edition/printing variants on existing titles.
 
 
-## Authors
+## Creators
 The ChinaComx Lianhuanhua Publication Dataset has been created within the [ERC-ChinaComx Project](https://chinacomx.github.io/):
 
 - Principal Investigator: [**Lena Henningsen**](https://chinacomx.github.io/team/lena/)
@@ -111,8 +136,8 @@ A first methodological overview of the work behind the dataset was presented at 
 
 In addition, a comprehensive data paper is currently (November 2026) under review at the *Journal of Open Humanities Data*.
 
-## Known Issues and Future Updates
-The dataset is a work-in-progress; we have spent substantial effort on data cleaning and verification, but are aware of remaining edge cases documented in our repository's Issues tab. Contributions and corrections are welcome!
+## Future Updates
+The dataset is a work-in-progress; we have spent substantial effort on data cleaning and verification, but are aware of remaining edge cases documented in our repository's Issues tab. Contributions and corrections are welcome, just [contact us](https://chinacomx.github.io/contact/)!
 
 All future updates and expanded releases of the dataset will be documented in `CHANGELOG.md`. 
 
